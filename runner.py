@@ -61,5 +61,21 @@ async def main():
                     print("AGENT:", part.text)
 
 
-if __name__ == "__main__":
-    asyncio.run(main())
+session_service = InMemorySessionService()
+memory_service = InMemoryMemoryService()
+
+retry_config = types.HttpRetryOptions(
+    attempts=3,
+    exp_base=2,
+    initial_delay=1,
+)
+
+root_agent = build_orchestrator_agent(retry_config)
+app = App(name="agents", root_agent=root_agent, plugins=[LoggingPlugin()])
+
+runner = Runner(
+    app=app,
+    session_service=session_service,
+    memory_service=memory_service,
+)
+
