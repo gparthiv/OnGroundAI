@@ -1,0 +1,7 @@
+__pycache__/
+.env
+*.pyc
+.kaggle/
+.ipynb_checkpoints/
+secrets/
+venv/
