@@ -4,16 +4,19 @@ from pathlib import Path
 DATA_DIR = Path(__file__).parent.parent / "data"
 
 def load_calendar():
-    """Load calendar.json and return as dict."""
+    """Load calendar.json and return wrapped dict for ADK."""
     p = DATA_DIR / "calendar.json"
-    return json.loads(p.read_text())
+    data = json.loads(p.read_text())
+    return {"calendar": data["worker_calendar"]}
 
 def load_tasks():
-    """Load tasks.json and return as dict."""
+    """Load tasks.json and return wrapped dict for ADK."""
     p = DATA_DIR / "tasks.json"
-    return json.loads(p.read_text())
+    data = json.loads(p.read_text())
+    return {"tasks": data["tasks"]}
 
 def load_messages():
-    """Load messages.json and return a list of messages."""
+    """Load messages.json and return wrapped dict for ADK."""
     p = DATA_DIR / "messages.json"
-    return json.loads(p)["messages"]
+    data = json.loads(p.read_text())
+    return {"messages": data["messages"]}
