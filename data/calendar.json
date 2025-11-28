@@ -1,0 +1,6 @@
+{
+  "worker_calendar": [
+    {"worker_id":"w1","task_id":"t1","start":"2025-11-28T09:00:00","end":"2025-11-28T10:00:00","location":"Sector 12"},
+    {"worker_id":"w2","task_id":"t2","start":"2025-11-28T09:30:00","end":"2025-11-28T10:15:00","location":"Sector 5"}
+  ]
+}

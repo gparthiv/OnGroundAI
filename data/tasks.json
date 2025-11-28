@@ -1,0 +1,6 @@
+{
+  "tasks": [
+    {"task_id":"t1","worker_id":"w1","address":"Sector 12","status":"assigned"},
+    {"task_id":"t2","worker_id":"w2","address":"Sector 5","status":"assigned"}
+  ]
+}
