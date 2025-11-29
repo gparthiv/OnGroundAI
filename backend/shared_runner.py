@@ -19,11 +19,12 @@ retry_config = types.HttpRetryOptions(
     initial_delay=1,
 )
 
-root_agent = build_orchestrator_agent(retry_config)
+# Build workflow agent (not root with CoreAgent)
+workflow_agent = build_orchestrator_agent(retry_config)
 
 app = App(
     name="agents",
-    root_agent=root_agent,
+    root_agent=workflow_agent,
     plugins=[LoggingPlugin()]
 )
 
