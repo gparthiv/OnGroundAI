@@ -2,10 +2,8 @@ from google.adk.agents import SequentialAgent, ParallelAgent
 
 def build_orchestrator_agent(retry_config):
     """
-    Create a root SequentialAgent that:
-     - Runs DataIngestAgent
-     - Runs DelayAgent, SafetyAgent in parallel
-     - Runs ReportAgent to synthesize results
+    Builds the workflow agent (no CoreAgent routing here).
+    Routing is handled in backend/main.py
     """
     from agents.data_ingest_agent import build_data_ingest_agent
     from agents.delay_agent import build_delay_agent
@@ -17,7 +15,14 @@ def build_orchestrator_agent(retry_config):
     safety = build_safety_agent(retry_config)
     report = build_report_agent(retry_config)
 
-    parallel = ParallelAgent(name="SpecialistsParallel", sub_agents=[delay, safety])
-    root = SequentialAgent(name="Orchestrator", sub_agents=[ingest, parallel, report])
-    return root
-  
+    # Just the workflow, no CoreAgent
+    workflow = SequentialAgent(
+        name="Workflow",
+        sub_agents=[
+            ingest,
+            ParallelAgent(name="SpecialistsParallel", sub_agents=[delay, safety]),
+            report
+        ]
+    )
+
+    return workflow 
