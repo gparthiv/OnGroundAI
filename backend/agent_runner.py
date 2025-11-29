@@ -76,13 +76,13 @@ async def run_agent(user_message: str) -> dict:
         session_id=session_id,
         new_message=new_message
     ):
-        if event.output_key == "delay_findings":
+        if hasattr(event, "output_key") and event.output_key == "delay_findings":
             delay_findings = event.content.parts[0].text
 
-        if event.output_key == "safety_findings":
+        if hasattr(event, "output_key") and event.output_key == "safety_findings":
             safety_findings = event.content.parts[0].text
 
-        if event.output_key == "final_report":
+        if hasattr(event, "output_key") and event.output_key == "final_report":
             final_report = event.content.parts[0].text
 
         # Capture top-level final agent response
