@@ -1,7 +1,5 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
 from pydantic import BaseModel
 
 from backend.shared_runner import runner, session_service, memory_service
@@ -10,7 +8,6 @@ from google.genai import types
 import json
 import re
 from pathlib import Path
-import os
 
 
 # =====================================================================
@@ -57,10 +54,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# DATA_DIR = Path(__file__).parent.parent / "data"
 BASE_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = BASE_DIR / "data"
-FRONTEND_DIR = BASE_DIR / "frontend"
 
 class AgentRequest(BaseModel):
     message: str
@@ -74,19 +69,12 @@ def should_trigger_workflow(message: str) -> bool:
     message = message.lower().strip()
 
     workflow_keywords = [
-        # existing
         "run analysis", "check updates", "scan worker messages",
         "scan messages", "check workers", "run workflow",
-
-        # NEW — delay-related
         "who is delayed", "is anyone late", "is anyone delayed",
         "delay status", "worker delay", "delays?",
-
-        # NEW — safety-related
         "any safety issue", "safety issue", "safety status",
         "is anything unsafe", "report safety",
-
-        # NEW — generic status
         "give status", "overall status", "situation update",
         "summary", "report"
     ]
@@ -94,16 +82,14 @@ def should_trigger_workflow(message: str) -> bool:
     return any(k in message for k in workflow_keywords)
 
 
-
 # =====================================================================
 # ROUTES
 # =====================================================================
 
+@app.get("/")
 async def root():
-    return {"message": "OnGroundAI Backend Running"}
+    return {"message": "OnGroundAI Backend Running", "status": "healthy"}
 
-
-# ----------------------  DATA DASHBOARD ENDPOINT  ---------------------
 
 @app.get("/api/data")
 async def get_data():
@@ -120,8 +106,6 @@ async def get_data():
         return {"success": False, "error": str(e)}
 
 
-# ----------------------  TOOL DASHBOARD ENDPOINT  ---------------------
-
 @app.get("/api/tools")
 async def get_tools():
     """Mock tool info for dashboard."""
@@ -137,27 +121,18 @@ async def get_tools():
     }
 
 
-# =====================================================================
-# MAIN AGENT ROUTE (Workflow + Chat)
-# =====================================================================
-
 @app.post("/run_agent")
 async def run_agent(request: AgentRequest):
     try:
-        # ==============================================================
-        # CASE 1 — WORKFLOW TRIGGERED
-        # ==============================================================
         if should_trigger_workflow(request.message):
-
             session_id = "workflow-session"
 
-            # Ensure workflow session exists
             try:
                 await session_service.create_session(
-    app_name="agents",
-    user_id="web-user",
-    session_id=session_id
-)
+                    app_name="agents",
+                    user_id="web-user",
+                    session_id=session_id
+                )
             except:
                 pass
 
@@ -176,7 +151,6 @@ async def run_agent(request: AgentRequest):
                 session_id=session_id,
                 new_message=user_msg
             ):
-                # --- structured outputs ---
                 if getattr(event, "output_key", None) == "delay_findings":
                     raw = event.content.parts[0].text if event.content else ""
                     delay_findings = extract_json(raw) or raw
@@ -189,7 +163,6 @@ async def run_agent(request: AgentRequest):
                     raw = event.content.parts[0].text if event.content else ""
                     final_report = extract_json(raw) or raw
 
-                # --- final LLM output ---
                 if event.content and event.content.parts:
                     for p in event.content.parts:
                         if p.text:
@@ -206,19 +179,15 @@ async def run_agent(request: AgentRequest):
                 "agents_completed": 4
             }
 
-        # ==============================================================
-        # CASE 2 — NORMAL CHAT (CoreAgent)
-        # ==============================================================
         else:
             session_id = "chat-session"
 
-            # Ensure chat session exists
             try:
-               await session_service.create_session(
-    app_name="agents",
-    user_id="web-user",
-    session_id=session_id
-)
+                await session_service.create_session(
+                    app_name="agents",
+                    user_id="web-user",
+                    session_id=session_id
+                )
             except:
                 pass
 
@@ -272,12 +241,3 @@ async def run_agent(request: AgentRequest):
             "error": str(e),
             "traceback": traceback.format_exc(),
         }
-
-
-app.mount("/assets", StaticFiles(directory=str(FRONTEND_DIR / "assets")), name="assets")
-app.mount("/", StaticFiles(directory=str(FRONTEND_DIR), html=True), name="frontend")
-
-# Explicit root route to serve index.html
-@app.get("/")
-async def read_index():
-    return FileResponse(str(FRONTEND_DIR / "index.html"))
