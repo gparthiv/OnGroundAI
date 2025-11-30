@@ -20,3 +20,8 @@ def load_messages():
     p = DATA_DIR / "messages.json"
     data = json.loads(p.read_text())
     return {"messages": data["messages"]}
+
+def load_workers():
+    p = DATA_DIR / "workers.json"
+    data = json.loads(p.read_text())
+    return {"workers": data["workers"]}
