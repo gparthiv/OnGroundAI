@@ -1,0 +1,158 @@
+.agent-section {
+    margin-bottom: 16px;
+    padding: 16px;
+    background-color: #F9FAFB;
+    border-radius: 6px;
+    border-left: 3px solid #4EA0E6;
+    transition: all 0.2s ease;
+}
+
+.agent-section:hover { background-color: #F3F4F6; }
+
+.agent-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.agent-name {
+    font-weight: 600;
+    font-size: 14px;
+    color: #1A1A1A;
+    letter-spacing: 0.2px;
+}
+
+.agent-status { font-size: 13px; color: #6B7280; }
+.agent-status.complete { color: #059669; font-weight: 500; }
+.agent-duration { font-size: 13px; color: #6B7280; }
+.agent-details { font-size: 13px; color: #6B7280; line-height: 1.6; }
+.agent-tools { margin-bottom: 8px; }
+.agent-data { margin-top: 8px; }
+.agent-data-item { margin: 4px 0; padding-left: 12px; font-size: 12px; }
+
+.parallel-section { margin-bottom: 16px; }
+.section-title {
+    font-weight: 600;
+    font-size: 12px;
+    margin-bottom: 12px;
+    color: #6B7280;
+    letter-spacing: 0.5px;
+}
+
+.findings, .output { margin: 4px 0; }
+
+.worker-cards-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.worker-card {
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    padding: 18px;
+    border: 1px solid #E5E7EB;
+    position: relative;
+    transition: all 0.2s ease;
+    min-height: 140px;
+}
+
+.worker-card:hover {
+    border-color: #4EA0E6;
+    box-shadow: 0 4px 12px rgba(78, 160, 230, 0.12);
+}
+
+.worker-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+}
+
+.worker-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: #F3F4F6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border: 2px solid #E5E7EB;
+}
+
+.worker-icon-img { width: 28px; height: 28px; object-fit: contain; }
+.worker-icon-svg { width: 28px; height: 28px; }
+
+.status-dot {
+    position: absolute;
+    top: -3px;
+    right: -3px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    transition: background-color 0.3s;
+}
+
+.status-dot.red { background-color: #DC2626; }
+.status-dot.green { background-color: #059669; }
+
+.worker-id { font-weight: 600; font-size: 15px; color: #1A1A1A; letter-spacing: 0.2px; }
+.worker-name { font-size: 14px; color: #6B7280; margin-left: 6px; font-weight: 400; }
+.worker-task { font-size: 13px; color: #6B7280; margin: 8px 0; line-height: 1.4; }
+
+.worker-status {
+    font-size: 13px;
+    font-weight: 500;
+    margin: 8px 0;
+    transition: color 0.3s;
+    padding: 4px 10px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.worker-status.delayed { color: #DC2626; background-color: #FEE2E2; }
+.worker-status.ontime { color: #059669; background-color: #D1FAE5; }
+
+.worker-message { font-size: 12px; color: #6B7280; margin: 8px 0; font-style: italic; line-height: 1.4; }
+.worker-action { font-size: 11px; color: #9CA3AF; margin-top: 10px; padding-top: 10px; border-top: 1px solid #F3F4F6; }
+
+.tool-item {
+    padding: 12px;
+    border-bottom: 1px solid #F3F4F6;
+    font-size: 13px;
+    transition: background-color 0.2s ease;
+}
+
+.tool-item:hover { background-color: #F9FAFB; }
+.tool-item:last-child { border-bottom: none; }
+
+.tool-name { font-weight: 600; color: #1A1A1A; margin-bottom: 6px; font-size: 13px; }
+.tool-detail { font-size: 12px; color: #6B7280; margin: 3px 0; }
+
+.log-entry {
+    padding: 10px 12px;
+    border-left: 2px solid #4EA0E6;
+    margin-bottom: 8px;
+    font-size: 12px;
+    background-color: #F9FAFB;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+.log-entry:hover { background-color: #F3F4F6; }
+.log-entry .timestamp { font-weight: 600; color: #374151; margin-right: 8px; font-size: 11px; }
+.log-entry .log-text { color: #6B7280; }
+
+@media (max-width: 1200px) {
+    .worker-cards-container {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .worker-card {
+        flex: 1 1 calc(50% - 10px);
+        min-width: 280px;
+    }
+}

@@ -1,0 +1,207 @@
+.header {
+    background: linear-gradient(135deg, #2C5F8D 0%, #4EA0E6 100%);
+    padding: 24px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.header-left { flex: 0 0 auto; }
+
+.logo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.logo-img {
+    max-height: 60px;
+    width: auto;
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.logo-on {
+    font-size: 42px;
+    font-weight: 600;
+    color: #FFFFFF;
+    line-height: 1;
+    letter-spacing: -0.5px;
+}
+
+.logo-ground {
+    font-size: 22px;
+    font-weight: 400;
+    color: #FDB813;
+    font-style: normal;
+    letter-spacing: 0.5px;
+    margin-top: -4px;
+}
+.logo:has(.logo-img[src]:not([src=""])) .logo-text { display: none; }
+.logo:has(.logo-img[src]:not([src=""])) .logo-img { display: block !important; }
+
+.header-center {
+    flex: 1;
+    text-align: center;
+    margin: 0 40px;
+}
+
+.header-title {
+    font-size: 26px;
+    font-weight: 500;
+    color: #FFFFFF;
+    margin-bottom: 6px;
+    letter-spacing: -0.3px;
+}
+
+.header-subtitle {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: 400;
+    letter-spacing: 0.2px;
+}
+
+.header-right { flex: 0 0 auto; text-align: right; }
+
+.header-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 13px;
+}
+
+.welcome { font-weight: 500; font-size: 14px; }
+
+.session-info, .agent-count, .duration {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.icon { margin-right: 4px; }
+
+.main-content {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    padding: 24px 40px;
+    min-height: 0;
+}
+
+/* Panels */
+.left-panel,
+.right-panel {
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    padding: 24px;
+    border: 1px solid #E5E7EB;
+    box-shadow: none;
+}
+
+.left-panel { overflow-y: auto; }
+
+.right-panel {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.panel-title {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #1A1A1A;
+    border-bottom: 1px solid #E5E7EB;
+    padding-bottom: 12px;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+}
+
+.scrollable-indicator {
+    font-size: 11px;
+    font-weight: 400;
+    color: #9CA3AF;
+    text-transform: none;
+}
+.bottom-section {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 24px;
+    padding: 0 40px 24px;
+    align-items: start;
+}
+
+.middle-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.tool-registry-panel,
+.execution-log-panel {
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    padding: 20px;
+    border: 1px solid #E5E7EB;
+    max-height: 280px;
+    display: flex;
+    flex-direction: column;
+}
+
+.tool-registry-content,
+.execution-log-content {
+    flex: 1;
+    overflow-y: auto;
+    margin-top: 12px;
+}
+.footer {
+    background: linear-gradient(135deg, #2C5F8D 0%, #4EA0E6 100%);
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 13px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-left, .footer-center, .footer-right {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.footer-left { gap: 12px; }
+.footer-logo { font-weight: 500; }
+
+.footer-logo-img {
+    height: 22px;
+    width: auto;
+    margin-right: 16px;
+    display: inline-block;
+    vertical-align: middle;
+    opacity: 0.9;
+}
+
+.footer-logo-img:last-of-type { margin-right: 0; }
+.fallback-text { display: none !important; }
+.footer-logo-img[src=""], .footer-logo-img:not([src]) { display: none; }
+
+@media (max-width: 1200px) {
+    .main-content {
+        grid-template-columns: 1fr;
+        min-height: 0;
+    }
+    .bottom-section {
+        grid-template-columns: 1fr;
+    }
+}
