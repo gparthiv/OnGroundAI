@@ -1,14 +1,29 @@
 {
     "builds": [
         {
-            "src": "backend/main.py",
+            "src": "api/main.py",
             "use": "@vercel/python"
         }
     ],
     "routes": [
         {
+            "src": "/api/(.*)",
+            "dest": "api/main.py"
+        },
+        {
+            "src": "/run_agent",
+            "dest": "api/main.py"
+        },
+        {
+            "src": "/assets/(.*)",
+            "dest": "frontend/assets/$1"
+        },
+        {
             "src": "/(.*)",
-            "dest": "backend/main.py"
+            "dest": "frontend/index.html"
         }
-    ]
+    ],
+    "env": {
+        "GOOGLE_API_KEY": "@google_api_key"
+    }
 }
