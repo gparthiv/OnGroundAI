@@ -10,8 +10,15 @@ def build_report_agent(retry_config):
         name="ReportAgent",
         model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
         instruction="""
-Synthesize a concise operational report for the supervisor given the findings in session.state.
-Make recommendations and list any required approvals.
+Read these items from session.state:
+- delay_findings
+- safety_findings
+
+Then produce a final operations report.
+
+RULES:
+- Use ONLY the values provided in session.state.
+- If a list is empty or null, write 'No issues detected'.
 """,
         output_key="final_report",
     )
