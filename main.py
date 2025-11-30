@@ -5,7 +5,8 @@ from pathlib import Path
 # Add current directory to path
 sys.path.insert(0, str(Path(__file__).parent))
 
+# Import and expose app directly at module level
 from backend.main import app
 
-# Export for Vercel
-__all__ = ['app']
+# Vercel requires 'app' to be directly accessible at module level
+# No __all__ needed - just import it
