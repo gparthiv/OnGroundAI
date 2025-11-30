@@ -11,8 +11,13 @@ def build_safety_agent(retry_config):
         name="SafetyAgent",
         model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
         instruction="""
-Scan session.state for messages and transcribed audio. If any text suggests accident/safety risk,
-return JSON list: {worker_id, issue, urgency, recommended_action}.
+Scan session.state for messages and transcribed audio.
+If any text suggests accident/safety risk, produce:
+[ { "worker_id": "...", "issue": "...", "urgency": "...", "recommended_action": "..." } ]
+
+STRICT RULES:
+- Output ONLY valid JSON.
+- No backticks, no commentary, no markdown.
 """,
         output_key="safety_findings",
     )
