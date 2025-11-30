@@ -1,5 +1,6 @@
 from google.adk.agents import LlmAgent
 from google.adk.models.google_llm import Gemini
+from tools.approve_reassignment import approve_reassignment
 
 def build_delay_agent(retry_config):
     """
@@ -10,7 +11,16 @@ def build_delay_agent(retry_config):
     return LlmAgent(
         name="DelayAgent",
         model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
-        instruction="""Your job is to look at session state calendar and messages.
-If any message indicates a worker will be late, produce a JSON list of objects: {worker_id, task_id, reason, suggested_action}.""",
+        instruction="""
+Your job is to look at session state calendar and messages.
+If any message indicates a worker will be late, produce a JSON list of objects:
+[ { "worker_id": "...", "task_id": "...", "reason": "...", "suggested_action": "..." } ]
+
+STRICT RULES:
+- Output ONLY valid JSON.
+- No code blocks. No text. No explanation.
+- Your final answer must ONLY be the JSON array.
+""",
+        tools=[approve_reassignment],
         output_key="delay_findings",
     )
