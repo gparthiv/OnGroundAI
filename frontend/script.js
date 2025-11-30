@@ -1,5 +1,5 @@
 // API Configuration
-const API_BASE_URL = window.location.origin;
+const API_BASE_URL = ''; 
 
 // Global State
 let currentSessionId = 'workflow-session';
