@@ -1,5 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
 
 from backend.shared_runner import runner, session_service, memory_service
@@ -8,6 +10,7 @@ from google.genai import types
 import json
 import re
 from pathlib import Path
+import os
 
 
 # =====================================================================
@@ -54,8 +57,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-DATA_DIR = Path(__file__).parent.parent / "data"
-
+# DATA_DIR = Path(__file__).parent.parent / "data"
+BASE_DIR = Path(__file__).resolve().parent.parent
+DATA_DIR = BASE_DIR / "data"
+FRONTEND_DIR = BASE_DIR / "frontend"
 
 class AgentRequest(BaseModel):
     message: str
@@ -94,7 +99,6 @@ def should_trigger_workflow(message: str) -> bool:
 # ROUTES
 # =====================================================================
 
-@app.get("/")
 async def root():
     return {"message": "OnGroundAI Backend Running"}
 
@@ -268,3 +272,12 @@ async def run_agent(request: AgentRequest):
             "error": str(e),
             "traceback": traceback.format_exc(),
         }
+
+
+app.mount("/assets", StaticFiles(directory=str(FRONTEND_DIR / "assets")), name="assets")
+app.mount("/", StaticFiles(directory=str(FRONTEND_DIR), html=True), name="frontend")
+
+# Explicit root route to serve index.html
+@app.get("/")
+async def read_index():
+    return FileResponse(str(FRONTEND_DIR / "index.html"))
