@@ -10,7 +10,7 @@ from google.adk.apps.app import App
 from google.genai import types
 
 # Import your orchestrator
-from ..agents.orchestrator import build_orchestrator_agent
+from agents.orchestrator import build_orchestrator_agent
 
 load_dotenv()
 
