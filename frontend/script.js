@@ -1,5 +1,5 @@
 // API Configuration
-const API_BASE_URL = ''; 
+const API_BASE_URL = 'https://ongroundai-backend.onrender.com'; 
 
 // Global State
 let currentSessionId = 'workflow-session';
