@@ -57,7 +57,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# DATA_DIR = Path(__file__).parent.parent / "data"
 BASE_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = BASE_DIR / "data"
 FRONTEND_DIR = BASE_DIR / "frontend"
@@ -67,32 +66,29 @@ class AgentRequest(BaseModel):
 
 
 # =====================================================================
-# Workflow Trigger Logic
+# Workflow Trigger Logic - FIXED VERSION
 # =====================================================================
 
 def should_trigger_workflow(message: str) -> bool:
+    """
+    Only trigger full workflow for explicit analysis requests.
+    Simple status queries should go to CoreAgent.
+    """
     message = message.lower().strip()
 
-    workflow_keywords = [
-        # existing
-        "run analysis", "check updates", "scan worker messages",
-        "scan messages", "check workers", "run workflow",
-
-        # NEW — delay-related
-        "who is delayed", "is anyone late", "is anyone delayed",
-        "delay status", "worker delay", "delays?",
-
-        # NEW — safety-related
-        "any safety issue", "safety issue", "safety status",
-        "is anything unsafe", "report safety",
-
-        # NEW — generic status
-        "give status", "overall status", "situation update",
-        "summary", "report"
+    # ONLY these phrases trigger the full workflow
+    full_workflow_keywords = [
+        "run analysis",
+        "run workflow", 
+        "full analysis",
+        "complete analysis",
+        "analyze everything",
+        "scan everything",
+        "run full scan",
+        "execute workflow"
     ]
 
-    return any(k in message for k in workflow_keywords)
-
+    return any(k in message for k in full_workflow_keywords)
 
 
 # =====================================================================
@@ -138,26 +134,25 @@ async def get_tools():
 
 
 # =====================================================================
-# MAIN AGENT ROUTE (Workflow + Chat)
+# MAIN AGENT ROUTE (Workflow + Chat) - FIXED VERSION
 # =====================================================================
 
 @app.post("/run_agent")
 async def run_agent(request: AgentRequest):
     try:
         # ==============================================================
-        # CASE 1 — WORKFLOW TRIGGERED
+        # CASE 1 — FULL WORKFLOW TRIGGERED (only for explicit requests)
         # ==============================================================
         if should_trigger_workflow(request.message):
 
             session_id = "workflow-session"
 
-            # Ensure workflow session exists
             try:
                 await session_service.create_session(
-    app_name="agents",
-    user_id="web-user",
-    session_id=session_id
-)
+                    app_name="agents",
+                    user_id="web-user",
+                    session_id=session_id
+                )
             except:
                 pass
 
@@ -207,28 +202,34 @@ async def run_agent(request: AgentRequest):
             }
 
         # ==============================================================
-        # CASE 2 — NORMAL CHAT (CoreAgent)
+        # CASE 2 — NORMAL CHAT (CoreAgent with Tools)
         # ==============================================================
         else:
             session_id = "chat-session"
 
-            # Ensure chat session exists
             try:
-               await session_service.create_session(
-    app_name="agents",
-    user_id="web-user",
-    session_id=session_id
-)
+                await session_service.create_session(
+                    app_name="agents",
+                    user_id="web-user",
+                    session_id=session_id
+                )
             except:
                 pass
 
+            # Import tools for CoreAgent
+            from tools.data_loader import load_messages, load_calendar, load_tasks, load_workers
             from agents.core_agent import build_core_agent
             from google.adk.runners import Runner
             from google.adk.apps.app import App
             from google.adk.plugins.logging_plugin import LoggingPlugin
 
             retry_cfg = types.HttpRetryOptions(attempts=3, exp_base=2, initial_delay=1)
+            
+            # Build CoreAgent with tools
             core_agent = build_core_agent(retry_cfg)
+            
+            # Add tools to CoreAgent
+            core_agent.tools = [load_messages, load_calendar, load_tasks, load_workers]
 
             chat_app = App(
                 name="agents",
@@ -277,7 +278,6 @@ async def run_agent(request: AgentRequest):
 app.mount("/assets", StaticFiles(directory=str(FRONTEND_DIR / "assets")), name="assets")
 app.mount("/", StaticFiles(directory=str(FRONTEND_DIR), html=True), name="frontend")
 
-# Explicit root route to serve index.html
 @app.get("/")
 async def read_index():
     return FileResponse(str(FRONTEND_DIR / "index.html"))
