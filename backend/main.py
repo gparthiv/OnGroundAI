@@ -4,7 +4,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
 
-from backend.shared_runner import runner, session_service, memory_service
+from .shared_runner import runner, session_service, memory_service
 from google.genai import types
 
 import json
