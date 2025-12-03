@@ -120,17 +120,63 @@ async def get_data():
 
 @app.get("/api/tools")
 async def get_tools():
-    """Mock tool info for dashboard."""
-    return {
-        "success": True,
-        "tools": [
-            {"name": "load_messages", "type": "FunctionTool", "status": "success"},
-            {"name": "load_calendar", "type": "FunctionTool", "status": "success"},
-            {"name": "load_tasks", "type": "FunctionTool", "status": "success"},
-            {"name": "analyze_image_mock", "type": "FunctionTool", "status": "idle"},
-            {"name": "transcribe_audio_mock", "type": "FunctionTool", "status": "idle"},
+    """Mock tool info for dashboard. Returns richer metadata for the UI."""
+    try:
+        # Build a simple, clear list so frontend can show 'returns' and 'last_used'
+        tools = [
+            {
+                "name": "load_messages",
+                "type": "FunctionTool",
+                "status": "success",
+                "returns": "dict(messages=[...])",
+                "last_used": None,
+                "result": None
+            },
+            {
+                "name": "load_calendar",
+                "type": "FunctionTool",
+                "status": "success",
+                "returns": "dict(worker_calendar=[...])",
+                "last_used": None,
+                "result": None
+            },
+            {
+                "name": "load_tasks",
+                "type": "FunctionTool",
+                "status": "success",
+                "returns": "dict(tasks=[...])",
+                "last_used": None,
+                "result": None
+            },
+            {
+                "name": "analyze_image_mock",
+                "type": "FunctionTool",
+                "status": "idle",
+                "returns": "dict(status, gps, timestamp, reuse_score, note)",
+                "last_used": None,
+                "result": None
+            },
+            {
+                "name": "transcribe_audio_mock",
+                "type": "FunctionTool",
+                "status": "idle",
+                "returns": "dict(text, language, translated_text, urgency)",
+                "last_used": None,
+                "result": None
+            },
+            {
+                "name": "approve_reassignment",
+                "type": "FunctionTool",
+                "status": "idle",
+                "returns": "dict(status, message, action?)",
+                "last_used": None,
+                "result": None
+            }
         ]
-    }
+
+        return {"success": True, "tools": tools, "tools_version": "1.0"}
+    except Exception as e:
+        return {"success": False, "error": str(e)}
 
 
 # =====================================================================
