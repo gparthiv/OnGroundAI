@@ -1,6 +1,14 @@
 {
   "tasks": [
-    {"task_id":"T011","worker_id":"W101","address":"Sector 12","status":"assigned"},
-    {"task_id":"T291","worker_id":"W194","address":"Sector 5","status":"assigned"}
+    {"task_id": "T011", "worker_id": "W101", "address": "Sector 12", "status": "assigned", "priority": "medium", "category": "delivery"},
+    {"task_id": "T291", "worker_id": "W194", "address": "Sector 5", "status": "assigned", "priority": "low", "category": "pickup"},
+    {"task_id": "T112", "worker_id": "W205", "address": "Sector 9", "status": "assigned", "priority": "high", "category": "inspection"},
+    {"task_id": "T118", "worker_id": "W130", "address": "Sector 3", "status": "assigned", "priority": "medium", "category": "repair"},
+    {"task_id": "T201", "worker_id": "W145", "address": "Sector 11", "status": "assigned", "priority": "high", "category": "emergency"},
+    {"task_id": "T302", "worker_id": "W222", "address": "Sector 2", "status": "assigned", "priority": "medium", "category": "delivery"},
+    {"task_id": "T410", "worker_id": "W156", "address": "Sector 15", "status": "assigned", "priority": "low", "category": "meter_reading"},
+    {"task_id": "T501", "worker_id": "W178", "address": "Sector 7", "status": "assigned", "priority": "medium", "category": "inspection"},
+    {"task_id": "T601", "worker_id": "W300", "address": "Sector 13", "status": "assigned", "priority": "low", "category": "delivery"},
+    {"task_id": "T701", "worker_id": "W320", "address": "Sector 20", "status": "assigned", "priority": "medium", "category": "pickup"}
   ]
 }

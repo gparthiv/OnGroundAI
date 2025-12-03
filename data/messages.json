@@ -1,8 +1,272 @@
 {
   "messages": [
-    {"msg_id":"m1","worker_id":"W101","type":"text","text":"Road closed","time":"2025-11-28T09:20:00"},
-    {"msg_id":"m2","worker_id":"W194","type":"text","text":"Received order","time":"2025-11-28T09:35:00"},
-    {"msg_id":"m3","worker_id":"W101","type":"audio","audio_id":"audio_accident","time":"2025-11-28T09:22:00"},
-    {"msg_id":"m4","worker_id":"W101","type":"text","text":"Stuck, road closed near Sector 12, will be late","time":"2025-11-28T09:19:00"}
+    {
+      "msg_id": "m1",
+      "worker_id": "W101",
+      "type": "text",
+      "text": "Road closed",
+      "time": "2025-11-28T09:20:00"
+    },
+    {
+      "msg_id": "m2",
+      "worker_id": "W194",
+      "type": "text",
+      "text": "Received order",
+      "time": "2025-11-28T09:35:00"
+    },
+    {
+      "msg_id": "m3",
+      "worker_id": "W101",
+      "type": "audio",
+      "audio_id": "audio_accident",
+      "time": "2025-11-28T09:22:00"
+    },
+    {
+      "msg_id": "m4",
+      "worker_id": "W101",
+      "type": "text",
+      "text": "Stuck, road closed near Sector 12, will be late",
+      "time": "2025-11-28T09:19:00"
+    },
+
+    {
+      "msg_id": "m5",
+      "worker_id": "W205",
+      "type": "text",
+      "text": "Reached site, but gate locked",
+      "time": "2025-11-28T10:05:00"
+    },
+    {
+      "msg_id": "m6",
+      "worker_id": "W205",
+      "type": "image",
+      "image_id": "img_siteok_001",
+      "time": "2025-11-28T10:06:00"
+    },
+
+    {
+      "msg_id": "m7",
+      "worker_id": "W130",
+      "type": "audio",
+      "audio_id": "audio_lowbattery",
+      "time": "2025-11-28T10:31:00"
+    },
+    {
+      "msg_id": "m8",
+      "worker_id": "W130",
+      "type": "image",
+      "image_id": "img_reused_003",
+      "time": "2025-11-28T10:33:00"
+    },
+    {
+      "msg_id": "m9",
+      "worker_id": "W130",
+      "type": "image",
+      "image_id": "img_reused_003",
+      "time": "2025-11-28T10:34:00"
+    },
+
+    {
+      "msg_id": "m10",
+      "worker_id": "W145",
+      "type": "audio",
+      "audio_id": "audio_minoraccident",
+      "time": "2025-11-28T09:50:00"
+    },
+    {
+      "msg_id": "m11",
+      "worker_id": "W145",
+      "type": "text",
+      "text": "Bike skidded slightly, can continue but delayed",
+      "time": "2025-11-28T09:52:00"
+    },
+
+    {
+      "msg_id": "m12",
+      "worker_id": "W222",
+      "type": "text",
+      "text": "Customer not answering",
+      "time": "2025-11-28T09:40:00"
+    },
+    {
+      "msg_id": "m13",
+      "worker_id": "W222",
+      "type": "audio",
+      "audio_id": "audio_confusion",
+      "time": "2025-11-28T09:43:00"
+    },
+
+    {
+      "msg_id": "m14",
+      "worker_id": "W156",
+      "type": "text",
+      "text": "Reached meter location",
+      "time": "2025-11-28T11:05:00"
+    },
+    {
+      "msg_id": "m15",
+      "worker_id": "W156",
+      "type": "image",
+      "image_id": "img_meter_004",
+      "time": "2025-11-28T11:06:00"
+    },
+
+    {
+      "msg_id": "m16",
+      "worker_id": "W178",
+      "type": "text",
+      "text": "On break, need few minutes",
+      "time": "2025-11-28T10:10:00"
+    },
+    {
+      "msg_id": "m17",
+      "worker_id": "W178",
+      "type": "audio",
+      "audio_id": "audio_sirenbackground",
+      "time": "2025-11-28T10:12:00"
+    },
+
+    {
+      "msg_id": "m18",
+      "worker_id": "W300",
+      "type": "text",
+      "text": "Address incorrect, asking locals",
+      "time": "2025-11-28T09:25:00"
+    },
+    {
+      "msg_id": "m19",
+      "worker_id": "W300",
+      "type": "image",
+      "image_id": "img_wrongloc_002",
+      "time": "2025-11-28T09:26:00"
+    },
+
+    {
+      "msg_id": "m20",
+      "worker_id": "W320",
+      "type": "text",
+      "text": "Starting task now",
+      "time": "2025-11-28T11:32:00"
+    },
+
+    {
+      "msg_id": "m21",
+      "worker_id": "W222",
+      "type": "image",
+      "image_id": "img_siteok_001",
+      "time": "2025-11-28T09:46:00"
+    },
+
+    {
+      "msg_id": "m22",
+      "worker_id": "W205",
+      "type": "audio",
+      "audio_id": "audio_angrycustomer",
+      "time": "2025-11-28T10:12:00"
+    },
+
+    {
+      "msg_id": "m23",
+      "worker_id": "W156",
+      "type": "text",
+      "text": "Meter is damaged",
+      "time": "2025-11-28T11:08:00"
+    },
+
+    {
+      "msg_id": "m24",
+      "worker_id": "W130",
+      "type": "text",
+      "text": "Traffic huge near Sector 3, delay expected",
+      "time": "2025-11-28T10:20:00"
+    },
+
+    {
+      "msg_id": "m25",
+      "worker_id": "W101",
+      "type": "image",
+      "image_id": "img_accidentspot_006",
+      "time": "2025-11-28T09:23:00"
+    },
+
+    {
+      "msg_id": "m26",
+      "worker_id": "W178",
+      "type": "text",
+      "text": "Roadblock near Sector 7",
+      "time": "2025-11-28T10:15:00"
+    },
+
+    {
+      "msg_id": "m27",
+      "worker_id": "W205",
+      "type": "text",
+      "text": "Customer arrived, continuing work",
+      "time": "2025-11-28T10:18:00"
+    },
+
+    {
+      "msg_id": "m28",
+      "worker_id": "W194",
+      "type": "image",
+      "image_id": "img_deliveryproof_007",
+      "time": "2025-11-28T10:05:00"
+    },
+
+    {
+      "msg_id": "m29",
+      "worker_id": "W145",
+      "type": "audio",
+      "audio_id": "audio_shock_urgent",
+      "time": "2025-11-28T09:55:00"
+    },
+
+    {
+      "msg_id": "m30",
+      "worker_id": "W320",
+      "type": "audio",
+      "audio_id": "audio_noisyworksite",
+      "time": "2025-11-28T11:35:00"
+    },
+
+    {
+      "msg_id": "m31",
+      "worker_id": "W300",
+      "type": "text",
+      "text": "Customer confirmed exact building",
+      "time": "2025-11-28T09:28:00"
+    },
+
+    {
+      "msg_id": "m32",
+      "worker_id": "W156",
+      "type": "audio",
+      "audio_id": "audio_heavybreathing",
+      "time": "2025-11-28T11:10:00"
+    },
+
+    {
+      "msg_id": "m33",
+      "worker_id": "W222",
+      "type": "text",
+      "text": "Leaving location now",
+      "time": "2025-11-28T10:20:00"
+    },
+
+    {
+      "msg_id": "m34",
+      "worker_id": "W194",
+      "type": "text",
+      "text": "Entering basement zone, network weak",
+      "time": "2025-11-28T09:50:00"
+    },
+
+    {
+      "msg_id": "m35",
+      "worker_id": "W320",
+      "type": "image",
+      "image_id": "img_pickup_008",
+      "time": "2025-11-28T11:40:00"
+    }
   ]
 }
